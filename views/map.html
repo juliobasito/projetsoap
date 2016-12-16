@@ -16,10 +16,6 @@ qu'elle ne peut pas être redimensionnée par l'utilisateur -->
             navigator.geolocation.getCurrentPosition(maPosition);
 
         function maPosition(position) {
-            var infopos = "Position déterminée :\n";
-            infopos += "Latitude : "+position.coords.latitude +"\n";
-            infopos += "Longitude: "+position.coords.longitude+"\n";
-            infopos += "Altitude : "+position.coords.altitude +"\n";
             initialiser(position.coords.latitude, position.coords.longitude);
         }
 
@@ -41,8 +37,8 @@ qu'elle ne peut pas être redimensionnée par l'utilisateur -->
             directionsDisplay.setMap(carte);
             var directionsService = new google.maps.DirectionsService();
 
-            setMarker(carte, latlng);
-            setMarker(carte, arrivee);
+            //setMarker(carte, latlng);
+            //setMarker(carte, arrivee);
             calculate(latlng, arrivee, directionsDisplay, directionsService);
 
 
@@ -68,6 +64,7 @@ qu'elle ne peut pas être redimensionnée par l'utilisateur -->
             directionsService.route(request, function(result, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
                     directionsDisplay.setDirections(result);
+                    alert('Total travel distance is: ' + (result.routes[0].legs[0].distance.value / 1000).toFixed(2) + ' km');
                 }
             });
         }
