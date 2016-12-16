@@ -1,11 +1,5 @@
 {
     "require": {
-<<<<<<< HEAD
-        "slim/slim": "^2.6",
-        "petebrowne/slim-layout-view": "^0.3.0"
-=======
-        "slim/slim": "~2.4",
-        "petebrowne/slim-layout-view": "~0.3"
->>>>>>> 7f0d4a1dcde0bd7a3f68542a59cf9df87f311b29
+        "slim/slim": "^2.6"
     }
 }
