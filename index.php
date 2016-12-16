@@ -26,6 +26,9 @@ $app->get('/infos', function () use ($app){
 $app->get('/mission', function () use ($app){
 	$app->render('mission.php');
 });
+$app->get('/map', function () use ($app){
+	$app->render('map.html');
+});
 $app->run();
 
 ?>
