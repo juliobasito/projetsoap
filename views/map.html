@@ -65,6 +65,7 @@ qu'elle ne peut pas être redimensionnée par l'utilisateur -->
                 if (status == google.maps.DirectionsStatus.OK) {
                     directionsDisplay.setDirections(result);
                     alert('Total travel distance is: ' + (result.routes[0].legs[0].distance.value / 1000).toFixed(2) + ' km');
+                    alert('Total travel duration is: ' + Math.floor(result.routes[0].legs[0].duration.value / 60) + ' mn');
                 }
             });
         }
