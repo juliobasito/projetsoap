@@ -19,6 +19,10 @@ $view->setTemplatesDirectory('views');
 $app->get('/', function () use ($app){
 	$app->render('login.php');
 });
+
+$app->get('/map', function () use ($app){
+    $app->render('map.html');
+});
 $app->run();
 
 ?>
