@@ -19,7 +19,6 @@ $view->setTemplatesDirectory('views');
 $app->get('/', function () use ($app){
 	$app->render('login.php');
 });
-
 $app->get('/infos', function () use ($app){
 	$app->render('infos.php');
 });
@@ -27,7 +26,6 @@ $app->get('/infos', function () use ($app){
 $app->get('/mission', function () use ($app){
 	$app->render('mission.php');
 });
-
 $app->run();
 
 ?>
