@@ -36,6 +36,16 @@
     <div class="col s12 m6">
       <div class="card">
         <div class="card-content white-text">
+          <span class="card-title black-text">Véhicule</span>
+          <div class="row">
+            <h5 class="black-text center-align">Mercedes Actros</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-content white-text">
           <span class="card-title black-text">Contrôle Véhicule</span>
           <div class="row">
             <h5 class="black-text center-align">Contrôle technique <i class="material-icons">verified_user</i></h5>
