@@ -14,6 +14,13 @@ $app->get('/getSeeting/:userId', function ($userId) {
 });
 -----------------------------------------------------*/
 
+$app->hook('slim.before.router', function () use ($app){
+    $app->view()->setData('app',$app);
+});
+
+$view = $app->view();
+$view->setTemplatesDirectory('views');
+
 
 $app->get('/getusermission/:id', function ($id) use ($app){
     Mission::getUserMission($id);
