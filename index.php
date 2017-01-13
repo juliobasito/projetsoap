@@ -8,6 +8,8 @@ $app = new \Slim\Slim(array(
     'view' => '\Slim\LayoutView', // I activate slim layout component
     'layout' => 'layouts/main.php' // I define my main layout
     ));
+
+session_start();
 /*------------------EXEMPLE--------------------------
 $app->get('/getSeeting/:userId', function ($userId) {
     //renvoi les seetings de l'utilisateur
@@ -27,27 +29,36 @@ $app->get('/getusermission/:id', function ($id) use ($app){
     Mission::getUserMission($id);
 });
 $app->get('/infos', function () use ($app){
-    $app->render('infos.php');
+    $vehicule = user::getVehiculesByUser($_SESSION['id']);
+    $vehiculedecod = json_decode($vehicule);
+    $now = $_SESSION['date'];
+    $date = user::dateDiff($now);
+    $permis = user::getPermisbyUser($_SESSION["id"], $vehiculedecod->Id);
+    $ct = user::getCT($vehiculedecod->Id);
+    $app->render('infos.php', array('vehicule'=>$vehiculedecod, 'date'=>$date, 'permis'=>$permis, 'ct'=>$ct));
 });
 
 $app->get('/getLocalisationStartMission/:id', function($id) use ($app){
     Mission::getLocalisationStartMission($id);
 });
 
+$app->get('/getCT/:id', function($id) use ($app){
+    user::getCT($id);
+});
+
 $app->get('/getLocalisationEndMission/:id', function($id) use ($app) {
     Mission::getLocalisationEndMission($id);
 });
 
-$app->get('/mission/:id', function ($id) use ($app) {
-    $mission = Mission::getMissionById($id);
-    $missionstart = Mission::getLocalisationStartMission($id);
-    $missionend = Mission::getLocalisationEndMission($id);
-    $app->render('missiontest.php',array('mission'=>json_decode($mission), 'missionstart'=>json_decode($missionstart), 'missionend'=>json_decode($missionend)));
-});
 
     $app->get('/mission', function () use ($app) {
-        $app->render('mission.php');
+        $id = Mission::getMissionByUser($_SESSION["id"]);
+        $mission = Mission::getMissionById($id);
+        $missionstart = Mission::getLocalisationStartMission($id);
+        $missionend = Mission::getLocalisationEndMission($id);
+        $app->render('missiontest.php',array('mission'=>json_decode($mission), 'missionstart'=>json_decode($missionstart), 'missionend'=>json_decode($missionend)));
     })->name('mission');
+
     $app->get('/map', function () use ($app) {
         $app->render('map.html');
     })->name('map');
@@ -59,6 +70,9 @@ $app->post('/login', function () use ($app) {
     $email = $_POST["mail"];
     $password = $_POST["password"];
     $res = user::login($email, $password);
+    $tab = json_decode($res);
+    $_SESSION['id'] = $tab->Id;
+    $_SESSION['date'] = time();
     if($res!=null)
     {
         $app->redirect($app->urlFor('mission'));

@@ -47,4 +47,14 @@ class mission
         $donnees = $sql->fetch();
         return json_encode($donnees);
     }
+
+    public static function getMissionByUser($id)
+    {
+        $db = null;
+        include('bdd.php');
+        $sql = $db->prepare("SELECT Mission.Id AS id FROM Mission JOIN user on Mission.id_user = user.Id WHERE user.id = ".$id." AND Mission.isFinish = 0");
+        $sql->execute();
+        $donnees = $sql->fetch();
+        return $donnees["id"];
+    }
 }

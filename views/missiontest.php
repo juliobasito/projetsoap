@@ -10,7 +10,6 @@
             <div class="row">
                 <h3 id="distance">0KM</h3>
                 <h5>Distance restante</h5>
-                <?php echo $missionstart->localisation." ".$missionstart->name; ?>
             </div>
         </div>
     </div>
