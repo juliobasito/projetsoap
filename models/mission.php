@@ -48,6 +48,22 @@ class mission
         return json_encode($donnees);
     }
 
+    public static function updatePanic($id)
+    {
+        $db = null;
+        include('bdd.php');
+        $sql = $db->prepare("UPDATE Truck set State = 'Warning' WHERE Id = ".$id);
+        $sql->execute();
+    }
+
+    public static function updateAccident($id)
+    {
+        $db = null;
+        include('bdd.php');
+        $sql = $db->prepare("UPDATE Truck set State = 'Accident' WHERE Id = ".$id);
+        $sql->execute();
+    }
+
     public static function getMissionByUser($id)
     {
         $db = null;

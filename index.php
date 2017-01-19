@@ -40,7 +40,7 @@ $app->get('/infos', function () use ($app){
         $ct = user::getCT($vehiculedecod->Id);
     }
     $app->render('infos.php', array('vehicule'=>$vehiculedecod, 'date'=>$date, 'permis'=>$permis, 'ct'=>$ct));
-});
+})->name('infos');
 
 $app->get('/getLocalisationStartMission/:id', function($id) use ($app){
     Mission::getLocalisationStartMission($id);
@@ -75,12 +75,23 @@ $app->get('/login', function () use ($app) {
     $app->render('login.php');
 })->name('connexion');
 
+$app->get('/panique/:camionid', function ($id) use ($app) {
+    Mission::updatePanic($id);
+    $app->redirect('../infos');
+});
+
+$app->get('/accident/:camionid', function ($id) use ($app) {
+    Mission::updateAccident($id);
+    $app->redirect('../infos');
+});
+
 $app->post('/login', function () use ($app) {
     $email = $_POST["mail"];
     $password = $_POST["password"];
     $res = user::login($email, $password);
     $tab = json_decode($res);
     $_SESSION['id'] = $tab->Id;
+    setcookie("cookieid", $tab->Id);
     $_SESSION['date'] = time();
     if($res!=null)
     {

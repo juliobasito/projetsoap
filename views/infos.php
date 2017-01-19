@@ -1,12 +1,40 @@
 <div class="container">
-  <div class="row" style="margin-top:20px;">
-    <div class="col s6">
-      <a class="waves-effect waves-light btn orange col-s4 offset-s4" style="width:100%">Panique</a>
-    </div>
-    <div class="col s6">
-      <a class="waves-effect waves-light btn red col-s4 offset-s4" style="width:100%">Accident</a>
+<?php if(!empty($vehicule)) {
+
+  if($vehicule->State == 'Warning') {?>
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card orange darken-1">
+        <div class="card-content white-text">
+          <span class="card-title"><i class="material-icons">warning</i> Attention votre vehicule semble endommagé</span>
+        </div>
+      </div>
     </div>
   </div>
+    <?php }
+  if($vehicule->State == 'Accident') {?>
+    <div class="row">
+      <div class="col s12 m12">
+        <div class="card red darken-1">
+          <div class="card-content white-text">
+            <span class="card-title"><i class="material-icons">error</i> Arret immédiat de la mission, un accident a été détécté</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php }} ?>
+  <?php if(!empty($vehicule)) {
+    ?>
+
+  <div class="row" style="margin-top:20px;">
+    <div class="col s6">
+      <a href="panique/<?php echo $vehicule->Id ?>" class="waves-effect waves-light btn orange col-s4 offset-s4" style="width:100%">Panique</a>
+    </div>
+    <div class="col s6">
+      <a href="accident/<?php echo $vehicule->Id ?>" class="waves-effect waves-light btn red col-s4 offset-s4" style="width:100%">Accident</a>
+    </div>
+  </div>
+  <?php } ?>
 
   <div class="row">
     <div class="col s12 m6">
