@@ -23,9 +23,6 @@
         <div class="col s12">
             <b>Date de maximum de livraison:</b> <?php echo $mission->End ?>
         </div>
-        <div class="col s12">
-            <b>Type de marchandise</b> <?php echo $mission->Content ?>
-        </div>
     </div>
     <div class="row center-align">
         <i class="material-icons" onclick="details()" style="cursor:pointer;">reorder</i>
