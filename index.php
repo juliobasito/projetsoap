@@ -72,7 +72,7 @@ $app->get('/getLocalisationEndMission/:id', function($id) use ($app) {
         $app->render('map.html');
     })->name('map');
 $app->get('/login', function () use ($app) {
-    if(isset($_SESSION['id']) && $_SESSION["id"] != null)
+    if(isset($_SESSION['id']) && $_SESSION["id"] != null )
     {
         $res1 = user::getUserById($_SESSION["id"]);
         $user = json_decode($res1);

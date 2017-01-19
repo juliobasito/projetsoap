@@ -41,7 +41,6 @@
     var lng2 = "";
     var carte = new google.maps.Map(document.getElementById("carte"));
     init();
-
     function details(){
         if(document.getElementById("details").style.display == "none")
         {
@@ -54,8 +53,6 @@
 
     function init()
     {
-        /*if(navigator.geolocation)
-            navigator.geolocation.getCurrentPosition(maPosition);*/
         var tab = [];
         var a2 = '<?php echo $missionstart->localisation ?>';
         var b2 = '<?php echo $missionend->localisation ?>';
@@ -81,12 +78,22 @@
                             position: latlng,
                             map: carte
                         });
-                        var latlng = new google.maps.LatLng(lat, lng);
-                        var arrivee = new google.maps.LatLng(lat2, lng2);
-                        directionsDisplay = new google.maps.DirectionsRenderer();
-                        directionsDisplay.setMap(carte);
-                        var directionsService = new google.maps.DirectionsService();
-                        calculate(latlng, arrivee, directionsDisplay, directionsService);
+                        if (navigator.geolocation) {
+                            var lat3 = navigator.geolocation.getCurrentPosition(showPosition);
+
+                            function showPosition(position) {
+                                var lat3 = position.coords.latitude;
+                                var lng3 = position.coords.longitude;
+                                var latlng3 = new google.maps.LatLng(lat3, lng3);
+                                var latlng = new google.maps.LatLng(lat3, lng3);
+                                var arrivee = new google.maps.LatLng(lat2, lng2);
+                                directionsDisplay = new google.maps.DirectionsRenderer();
+                                directionsDisplay.setMap(carte);
+                                var directionsService = new google.maps.DirectionsService();
+                                calculate(latlng, arrivee, directionsDisplay, directionsService);
+                            }
+                        }
+
                 });
 
 
@@ -94,12 +101,11 @@
         });
 
 
+        setTimeout(init,60000);
 
-    }
 
 
-    function maPosition(position) {
-        initialiser(position.coords.latitude, position.coords.longitude);
+
     }
 
 
