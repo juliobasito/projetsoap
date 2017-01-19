@@ -27,7 +27,10 @@
 echo $yield;
 
 ?>
-
+  <?php
+  if (isset($_SESSION["id"]))
+  {
+  ?>
 <div class="foot blue lighten-1">
   <div class="row noMarge">
     <div class="col s4 center-align">
@@ -41,6 +44,7 @@ echo $yield;
     </div>
   </div>
 </div>
+  <?php } ?>
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="js/materialize.min.js"></script>

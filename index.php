@@ -33,8 +33,12 @@ $app->get('/infos', function () use ($app){
     $vehiculedecod = json_decode($vehicule);
     $now = $_SESSION['date'];
     $date = user::dateDiff($now);
-    $permis = user::getPermisbyUser($_SESSION["id"], $vehiculedecod->Id);
-    $ct = user::getCT($vehiculedecod->Id);
+    $permis = null;
+    $ct = null;
+    if(!empty($vehiculedecod)) {
+        $permis = user::getPermisbyUser($_SESSION["id"], $vehiculedecod->Id);
+        $ct = user::getCT($vehiculedecod->Id);
+    }
     $app->render('infos.php', array('vehicule'=>$vehiculedecod, 'date'=>$date, 'permis'=>$permis, 'ct'=>$ct));
 });
 
@@ -53,10 +57,15 @@ $app->get('/getLocalisationEndMission/:id', function($id) use ($app) {
 
     $app->get('/mission', function () use ($app) {
         $id = Mission::getMissionByUser($_SESSION["id"]);
-        $mission = Mission::getMissionById($id);
-        $missionstart = Mission::getLocalisationStartMission($id);
-        $missionend = Mission::getLocalisationEndMission($id);
-        $app->render('missiontest.php',array('mission'=>json_decode($mission), 'missionstart'=>json_decode($missionstart), 'missionend'=>json_decode($missionend)));
+        if(!empty($id)) {
+            $mission = Mission::getMissionById($id);
+            $missionstart = Mission::getLocalisationStartMission($id);
+            $missionend = Mission::getLocalisationEndMission($id);
+            $app->render('missiontest.php', array('mission' => json_decode($mission), 'missionstart' => json_decode($missionstart), 'missionend' => json_decode($missionend)));
+        }
+        else {
+            $app->render('nomission.php');
+        }
     })->name('mission');
 
     $app->get('/map', function () use ($app) {
@@ -80,7 +89,7 @@ $app->post('/login', function () use ($app) {
     else
     {
         $app->flash('error', 'L\'adresse email et le mot de passe que vous avez entrés ne correspondent pas à ceux présents dans nos fichiers. Veuillez vérifier et réessayer.');
-        $app->redirect($app->urlFor('connexion'));
+        console.log("erreu");
 
     }
 });

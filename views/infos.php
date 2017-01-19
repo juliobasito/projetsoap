@@ -39,7 +39,7 @@
         <div class="card-content white-text">
           <span class="card-title black-text">Véhicule</span>
           <div class="row">
-            <h5 class="black-text center-align"><?php echo $vehicule->Brand.' '.$vehicule->Model;?></h5>
+            <h5 class="black-text center-align"><?php if (!empty($vehicule)){ echo $vehicule->Brand.' '.$vehicule->Model;} else { ?><p style="color:red"> AUCUN VEHICULE ATTRIBUE<?php } ?></p></h5>
           </div>
         </div>
       </div>

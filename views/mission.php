@@ -45,6 +45,7 @@ function details(){
     document.getElementById("details").style.display = "none";
   }
 }
+
 function init()
 {
   if(navigator.geolocation)

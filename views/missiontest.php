@@ -15,16 +15,16 @@
     </div>
     <div class="row" id="details" style="display:none;">
         <div class="col s12">
-            <b>Adresse de départ:</b> 419 Rue du Maréchal Niel, 33100 Bordeaux, France
+            <b>Adresse de départ:</b> <?php echo $missionstart->localisation ?>
         </div>
         <div class="col s12">
-            <b>Adresse d'arrivée:</b> 419 Rue du Maréchal Niel, 33100 Bordeaux, France
+            <b>Adresse d'arrivée:</b> <?php echo $missionend->localisation ?>
         </div>
         <div class="col s12">
-            <b>Date de maximum de livraison:</b> 01/01/2016 10H00
+            <b>Date de maximum de livraison:</b> <?php echo $mission->End ?>
         </div>
         <div class="col s12">
-            <b>Type de marchandise</b> Sable
+            <b>Type de marchandise</b> <?php echo $mission->Content ?>
         </div>
     </div>
     <div class="row center-align">
@@ -41,6 +41,16 @@
     var lng2 = "";
     var carte = new google.maps.Map(document.getElementById("carte"));
     init();
+
+    function details(){
+        if(document.getElementById("details").style.display == "none")
+        {
+            document.getElementById("details").style.display = "block";
+        }
+        else{
+            document.getElementById("details").style.display = "none";
+        }
+    }
 
     function init()
     {
