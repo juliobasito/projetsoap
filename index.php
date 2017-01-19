@@ -72,6 +72,22 @@ $app->get('/getLocalisationEndMission/:id', function($id) use ($app) {
         $app->render('map.html');
     })->name('map');
 $app->get('/login', function () use ($app) {
+    if(isset($_SESSION['id']) && $_SESSION["id"] != null)
+    {
+        $res1 = user::getUserById($_SESSION["id"]);
+        $user = json_decode($res1);
+        $res = user::getRoleByUser($user->Id_Role);
+        $role = json_decode($res);
+        echo "coucou";
+        if($role->Title == "utilisateur")
+        {
+            $app->redirect('infos');
+        }
+        if($role->Title == "admin")
+        {
+            $app->redirect('../apiadmin');
+        }
+    }
     $app->render('login.php');
 })->name('connexion');
 
@@ -85,10 +101,17 @@ $app->get('/accident/:camionid', function ($id) use ($app) {
     $app->redirect('../infos');
 });
 
+$app->get('/deconnexion', function () use ($app)
+{
+    session_destroy();
+    $app->redirect('login');
+});
+
 $app->post('/login', function () use ($app) {
     $email = $_POST["mail"];
     $password = $_POST["password"];
     $res = user::login($email, $password);
+
     if($res != null)
     {
         $tab = json_decode($res);
@@ -99,7 +122,12 @@ $app->post('/login', function () use ($app) {
             setcookie("cookieid", $tab->Id);
             $_SESSION['date'] = time();
             $app->redirect($app->urlFor('mission'));
-        } else if($role->Title == 'admin') {}
+        } else if($role->Title == 'admin') {
+            $_SESSION['id'] = $tab->Id;
+            setcookie("cookieid", $tab->Id);
+            $_SESSION['date'] = time();
+            $app->redirect('../apiadmin');
+        }
     }
     else {
         $app->redirect('login');

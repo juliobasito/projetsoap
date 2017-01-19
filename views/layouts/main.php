@@ -33,14 +33,17 @@ echo $yield;
   ?>
 <div class="foot blue lighten-1">
   <div class="row noMarge">
-    <div class="col s4 center-align">
+    <div class="col s3 center-align">
       <a href="infos" class="white-text"><i class="small material-icons">info</i></a>
     </div>
-    <div class="col s4 center-align">
+    <div class="col s3 center-align">
       <a href="mission" class="white-text"><i class="small material-icons">work</i></a>
     </div>
-    <div class="col s4 center-align">
+    <div class="col s3 center-align">
       <a href="" class="white-text"><i class="small material-icons">comment</i></a>
+    </div>
+    <div class="col s3 center-align">
+      <a href="deconnexion" class="white-text"><i class="small material-icons">power_settings_new</i></a>
     </div>
   </div>
 </div>

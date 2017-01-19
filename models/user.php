@@ -64,6 +64,16 @@ class user {
         return $retour;
     }
 
+    public static function getUserById($id)
+    {
+        $db = null;
+        include('bdd.php');
+        $sql = $db->prepare("SELECT * FROM user where Id = ".$id);
+        $sql->execute();
+        $donnees = $sql->fetch();
+        return json_encode($donnees);
+    }
+
     public static function getPermisbyUser($id, $truckid)
     {
         $db = null;
