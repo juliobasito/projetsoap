@@ -89,20 +89,18 @@ $app->post('/login', function () use ($app) {
     $email = $_POST["mail"];
     $password = $_POST["password"];
     $res = user::login($email, $password);
-    $tab = json_decode($res);
-    $_SESSION['id'] = $tab->Id;
-    setcookie("cookieid", $tab->Id);
-    $_SESSION['date'] = time();
-    if($res!=null)
+    if($res != null)
     {
+        $tab = json_decode($res);
+        $_SESSION['id'] = $tab->Id;
+        setcookie("cookieid", $tab->Id);
+        $_SESSION['date'] = time();
         $app->redirect($app->urlFor('mission'));
     }
-    else
-    {
-        $app->flash('error', 'L\'adresse email et le mot de passe que vous avez entrés ne correspondent pas à ceux présents dans nos fichiers. Veuillez vérifier et réessayer.');
-        console.log("erreu");
-
+    else {
+        $app->redirect('../login');
     }
+
 });
     $app->run();
 
