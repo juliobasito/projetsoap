@@ -92,13 +92,17 @@ $app->post('/login', function () use ($app) {
     if($res != null)
     {
         $tab = json_decode($res);
-        $_SESSION['id'] = $tab->Id;
-        setcookie("cookieid", $tab->Id);
-        $_SESSION['date'] = time();
-        $app->redirect($app->urlFor('mission'));
+        $res = User::getRoleByUser($tab->Id_Role);
+        $role = json_decode($res);
+        if($role->Title == 'utilisateur') {
+            $_SESSION['id'] = $tab->Id;
+            setcookie("cookieid", $tab->Id);
+            $_SESSION['date'] = time();
+            $app->redirect($app->urlFor('mission'));
+        } else if($role->Title == 'admin') {}
     }
     else {
-        $app->redirect('../login');
+        $app->redirect('login');
     }
 
 });

@@ -12,7 +12,7 @@ class mission
     {
         $db = null;
         include('bdd.php');
-        $sql = $db->prepare("SELECT * FROM Mission WHERE id_user = ".$id);
+        $sql = $db->prepare("SELECT * FROM Mission WHERE id_User = ".$id);
         $sql->execute();
         $donnees = $sql->fetch();
         echo json_encode($donnees);
@@ -68,7 +68,7 @@ class mission
     {
         $db = null;
         include('bdd.php');
-        $sql = $db->prepare("SELECT Mission.Id AS id FROM Mission JOIN user on Mission.id_user = user.Id WHERE user.id = ".$id." AND Mission.isFinish = 0");
+        $sql = $db->prepare("SELECT Mission.Id AS id FROM Mission JOIN user on Mission.id_User = user.Id WHERE user.id = ".$id." AND Mission.isFinish = 0");
         $sql->execute();
         $donnees = $sql->fetch();
         return $donnees["id"];

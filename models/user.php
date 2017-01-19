@@ -110,4 +110,14 @@ class user {
         return true;
     }
 
+    public static function getRoleByUser($id)
+    {
+        $db = null;
+        include('bdd.php');
+        $sql = $db->prepare("SELECT * FROM `role` WHERE Id = ".$id);
+        $sql->execute();
+        $donnees = $sql->fetch();
+        return json_encode($donnees);
+    }
+
 }
