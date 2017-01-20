@@ -98,7 +98,7 @@
         });
 
 
-        setTimeout(init,60000);
+        setTimeout(init,15000);
 
 
 
